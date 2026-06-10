@@ -1,26 +1,45 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ── Brand palette (exact values from flyer) ── */
+  --color-brand-teal:    #7ACDCA;
+  --color-brand-slate:   #648E8F;
+  --color-brand-navy:    #202E3D;
+  --color-brand-pale:    #BDE4E2;
+  --color-brand-bg-top:  #C2E6E4;
+  --color-brand-bg-soft: #ECF7F7;
+  --color-brand-white:   #FFFFFF;
+
+  /* ── Derived / utility ── */
+  --color-brand-teal-hover: #5fbfbc;
+  --color-body:   #3B4A5A;
+  --color-success: #2E7D5B;
+
+  --font-heading: var(--font-montserrat);
+  --font-body: var(--font-montserrat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-brand-white);
+  color: var(--color-body);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
 }
