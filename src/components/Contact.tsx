@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Image from "next/image";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -204,22 +203,10 @@ export default function Contact() {
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-slate">
                 Certifications
               </p>
-              <div className="flex flex-wrap items-center gap-6">
-                <Image
-                  src="/images/badge-intuit-bookkeeping.png"
-                  alt="Intuit Bookkeeping Trained"
-                  width={100}
-                  height={100}
-                  className="h-16 w-auto object-contain"
-                />
-                <Image
-                  src="/images/badge-quickbooks-proadvisor.png"
-                  alt="QuickBooks ProAdvisor Level 2"
-                  width={100}
-                  height={100}
-                  className="h-16 w-auto object-contain"
-                />
-              </div>
+              <ul className="list-none space-y-2">
+                <li className="text-sm font-medium text-brand-navy">Intuit Bookkeeping Trained</li>
+                <li className="text-sm font-medium text-brand-navy">QuickBooks ProAdvisor Level 2</li>
+              </ul>
             </div>
           </div>
         </div>
