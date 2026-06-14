@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const navLinks = [
   { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Header() {

@@ -9,18 +9,19 @@
 - **Machine type:** `e2-micro` (2 vCPUs, 1 GB RAM)
 - **OS:** Debian 12 (Bookworm)
 - **Static IP:** `34.9.84.1`
-- **Disk:** 10 GB standard persistent (runs tight — was at 97% after initial deploy)
+- **Disk:** 10 GB standard persistent (runs tight — ~9% free as of June 2026)
 - **Swap:** 2 GB file at `/swapfile` (permanent via `/etc/fstab`) — required for `npm run build`
 
 ## What's on this VM
 
-This VM hosts **three sites**:
+This VM hosts **two sites**:
 
 | Site | Domain | Port | Process | Nginx config |
 |---|---|---|---|---|
-| InstaKlean (car-cleaning) | instakleanbk.com | 5000 | Gunicorn (systemd: `car-cleaning`) | `/etc/nginx/sites-enabled/car-cleaning` |
 | Realm Financial | realmfinancialservices.com | 3001 | Next.js via PM2 (`realm`) | `/etc/nginx/sites-enabled/realm-financial` |
 | Biz Plan (static) | fallback (default_server) | — | Static HTML | `/etc/nginx/sites-enabled/biz-plan` |
+
+> **Note:** InstaKlean (car-cleaning) was previously on this VM but was removed in June 2026. Its data was backed up locally to `C:\Users\User\Desktop\car-cleaning`.
 
 ## SSH Access
 
@@ -63,8 +64,7 @@ CONTACT_TO=<recipient email>
 
 - **Domain:** `realmfinancialservices.com` (registered/managed via Cloudflare)
 - **DNS:** A records for `@` and `www` → `34.9.84.1` (Cloudflare proxied, orange cloud)
-- **SSL:** Handled by Cloudflare edge (SSL mode: Full). On the VM, Nginx borrows the instakleanbk.com Let's Encrypt cert for the TLS handshake — this works because Cloudflare terminates the real SSL.
-- **Note:** If Cloudflare SSL mode is set to "Full (strict)" it will fail. Must be "Full" only.
+- **SSL:** Cloudflare proxy handles the visitor-facing SSL. On the VM, Nginx has its own Let's Encrypt cert at `/etc/letsencrypt/live/realmfinancialservices.com/`. Auto-renews via certbot. Cloudflare SSL mode is set to "Full".
 
 ## Nginx Config
 
@@ -130,7 +130,7 @@ cat /etc/nginx/sites-enabled/realm-financial
 
 1. **Memory:** The e2-micro has only 1 GB RAM. The 2 GB swap file at `/swapfile` is essential — without it, `npm run build` will hang indefinitely. Do not remove the swap.
 
-2. **Disk space:** The 10 GB disk runs very tight (~97% after deploy). Monitor with `df -h /`. If it fills up, clean with:
+2. **Disk space:** The 10 GB disk runs tight (~9% free). Monitor with `df -h /`. If it fills up, clean with:
    ```bash
    sudo apt-get clean
    npm cache clean --force
@@ -143,12 +143,7 @@ cat /etc/nginx/sites-enabled/realm-financial
    pm2 save
    ```
 
-4. **SSL cert sharing:** The realm Nginx config borrows the instakleanbk.com Let's Encrypt cert. If that cert expires or is removed, get a proper cert:
-   ```bash
-   sudo certbot --nginx -d realmfinancialservices.com -d www.realmfinancialservices.com
-   ```
-
-5. **VM restarts:** After a VM restart, PM2 auto-starts the realm app. The car-cleaning app uses systemd (`sudo systemctl start car-cleaning`). Both should come up automatically.
+4. **VM restarts:** After a VM restart, PM2 auto-starts the realm app via systemd service `pm2-User`.
 
 ## Quick Reference
 

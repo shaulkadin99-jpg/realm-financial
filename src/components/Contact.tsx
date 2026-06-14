@@ -203,10 +203,24 @@ export default function Contact() {
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-slate">
                 Certifications
               </p>
-              <ul className="list-none space-y-2">
-                <li className="text-sm font-medium text-brand-navy">Intuit Bookkeeping Trained</li>
-                <li className="text-sm font-medium text-brand-navy">QuickBooks ProAdvisor Level 2</li>
-              </ul>
+              <div className="flex flex-wrap items-center gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/images/badge-intuit-bookkeeping.png"
+                    alt="Intuit Bookkeeping Certification"
+                    className="h-20 w-auto object-contain"
+                  />
+                  <p className="text-xs font-medium text-brand-navy">Intuit Bookkeeping</p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/images/badge-quickbooks-proadvisor.png"
+                    alt="Intuit QuickBooks Certification Level 2"
+                    className="h-20 w-auto object-contain"
+                  />
+                  <p className="text-xs font-medium text-brand-navy">QuickBooks ProAdvisor L2</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
