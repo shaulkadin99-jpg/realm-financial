@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Realm Financial Services — Bookkeeping & Financial Management",
   description:
     "Professional bookkeeping, cash management, invoicing, and financial reporting for small businesses. Taking the stress out of your business finances.",
+  verification: {
+    google: "LOLwj9B9V7VZybbhueWc6yx96q5rUeaLEKDGrUSK3yc",
+  },
 };
 
 export default function RootLayout({
