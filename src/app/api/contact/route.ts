@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 interface ContactPayload {
   name: string;
@@ -37,11 +37,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASSWORD;
+  const apiKey = process.env.RESEND_API_KEY;
   const contactTo = process.env.CONTACT_TO;
 
-  if (!smtpUser || !smtpPass || !contactTo) {
+  if (!apiKey || !contactTo) {
     console.error("Missing email environment variables.");
     return NextResponse.json(
       { error: "Server configuration error. Please try again later." },
@@ -49,15 +48,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: smtpUser,
-      pass: smtpPass,
-    },
-  });
+  const resend = new Resend(apiKey);
 
   const text = [
     `Name: ${name}`,
@@ -71,8 +62,8 @@ export async function POST(request: Request) {
     .join("\n");
 
   try {
-    await transporter.sendMail({
-      from: `"Realm Financial Website" <${smtpUser}>`,
+    await resend.emails.send({
+      from: "Realm Financial Website <onboarding@resend.dev>",
       to: contactTo,
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
