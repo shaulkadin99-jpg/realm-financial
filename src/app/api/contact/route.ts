@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { promises as fs } from "fs";
+import path from "path";
 
 interface ContactPayload {
   name: string;
@@ -69,6 +71,33 @@ export async function POST(request: Request) {
       subject: `New Contact Form Submission from ${name}`,
       text,
     });
+
+    // Save submission to JSON file
+    try {
+      const dataDir = path.join(process.cwd(), "data");
+      const filePath = path.join(dataDir, "submissions.json");
+      await fs.mkdir(dataDir, { recursive: true });
+
+      let submissions = [];
+      try {
+        const existing = await fs.readFile(filePath, "utf-8");
+        submissions = JSON.parse(existing);
+      } catch {
+        // File doesn't exist yet
+      }
+
+      submissions.push({
+        name,
+        email,
+        phone: phone || null,
+        message,
+        timestamp: new Date().toISOString(),
+      });
+
+      await fs.writeFile(filePath, JSON.stringify(submissions, null, 2));
+    } catch (err) {
+      console.error("Failed to save submission to file:", err);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
