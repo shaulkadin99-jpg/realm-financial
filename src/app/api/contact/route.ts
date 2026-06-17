@@ -37,11 +37,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASSWORD;
   const contactTo = process.env.CONTACT_TO;
 
-  if (!gmailUser || !gmailPass || !contactTo) {
+  if (!smtpUser || !smtpPass || !contactTo) {
     console.error("Missing email environment variables.");
     return NextResponse.json(
       { error: "Server configuration error. Please try again later." },
@@ -50,10 +50,12 @@ export async function POST(request: Request) {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
     auth: {
-      user: gmailUser,
-      pass: gmailPass,
+      user: smtpUser,
+      pass: smtpPass,
     },
   });
 
@@ -70,7 +72,7 @@ export async function POST(request: Request) {
 
   try {
     await transporter.sendMail({
-      from: `"Realm Financial Website" <${gmailUser}>`,
+      from: `"Realm Financial Website" <${smtpUser}>`,
       to: contactTo,
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
