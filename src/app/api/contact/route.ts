@@ -91,6 +91,8 @@ export async function POST(request: Request) {
         email,
         phone: phone || null,
         message,
+        sentFrom: "onboarding@resend.dev",
+        sentTo: contactTo,
         timestamp: new Date().toISOString(),
       });
 
