@@ -143,9 +143,8 @@ export default function Contact() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-5">
               {/* Phone */}
-              <a
-                href="tel:7324568311"
-                className="flex items-center gap-4 rounded-xl border border-brand-pale p-4 transition-colors hover:bg-brand-bg-soft"
+              <div
+                className="flex items-center gap-4 rounded-xl border border-brand-pale p-4"
               >
                 <span className="inline-flex items-center justify-center rounded-full bg-brand-teal/10 p-3 text-brand-teal">
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +157,7 @@ export default function Contact() {
                   </p>
                   <p className="font-medium text-brand-navy">732.456.8311</p>
                 </div>
-              </a>
+              </div>
 
               {/* Email */}
               <a

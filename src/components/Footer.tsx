@@ -9,9 +9,9 @@ export default function Footer() {
             <img
               src="/logo_final.svg"
               alt="Realm Financial Services LLC"
-              className="h-10 w-auto brightness-0 invert"
+              className="h-20 w-auto brightness-0 invert"
             />
-            <p className="mt-4 text-sm leading-relaxed text-brand-white/50">
+            <p className="mt-6 text-sm leading-relaxed text-brand-white/50">
               Professional bookkeeping &amp; financial management for small
               businesses that want to grow with confidence.
             </p>
@@ -38,15 +38,12 @@ export default function Footer() {
             </h4>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
-                <a
-                  href="tel:7324568311"
-                  className="inline-flex items-center gap-2 text-brand-white/70 hover:text-brand-white transition-colors"
-                >
+                <span className="inline-flex items-center gap-2 text-brand-white/50">
                   <svg className="h-4 w-4 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   732.456.8311
-                </a>
+                </span>
               </li>
               <li>
                 <a
