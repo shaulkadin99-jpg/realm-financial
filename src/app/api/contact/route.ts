@@ -65,7 +65,7 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: "Realm Financial Website <onboarding@resend.dev>",
+      from: "Realm Financial Website <noreply@realmfinancialservices.com>",
       to: contactTo,
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
         email,
         phone: phone || null,
         message,
-        sentFrom: "onboarding@resend.dev",
+        sentFrom: "noreply@realmfinancialservices.com",
         sentTo: contactTo,
         timestamp: new Date().toISOString(),
       });
